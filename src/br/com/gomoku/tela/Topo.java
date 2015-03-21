@@ -1,5 +1,6 @@
 package br.com.gomoku.tela;
 
+import br.com.gomoku.Gomoku;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;

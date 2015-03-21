@@ -1,5 +1,9 @@
-package br.com.gomoku.tela;
+package br.com.gomoku;
 
+import br.com.gomoku.tela.Menu;
+import br.com.gomoku.tela.Placar;
+import br.com.gomoku.tela.Tabuleiro;
+import br.com.gomoku.tela.Topo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -13,6 +17,8 @@ public class Gomoku extends JFrame {
     
     /** Background padrão */
     public static final Color BACKGROUND = new Color(0x4682B4);
+    /** Número de celulas */
+    public static final int ELEMENTOS = 19;    
     /** Largura mínima */
     private static final int W = 1000;
     /** Altura mínima */
@@ -48,6 +54,7 @@ public class Gomoku extends JFrame {
      * @param args 
      */
     public static void main(String[] args) {
+        ControleJogador.getInstance().addJogador();
         Gomoku gomoku = new Gomoku();
     }
 }
