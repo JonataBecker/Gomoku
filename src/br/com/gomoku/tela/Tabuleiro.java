@@ -3,6 +3,8 @@ package br.com.gomoku.tela;
 import br.com.gomoku.ControlePeca;
 import br.com.gomoku.Gomoku;
 import br.com.gomoku.Peca;
+import br.com.gomoku.exception.ExceptionConjuntoExiste;
+import br.com.gomoku.exception.ExceptionPeca;
 import br.com.gomoku.image.CacheImage;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -15,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -115,15 +118,22 @@ public class Tabuleiro extends JPanel {
      * @param e Evento
      */
     private void click(MouseEvent e) {
-        int x = e.getPoint().x - INI;
-        int y = e.getPoint().y - INI;
-        int posX = (int) Math.floor(x / TAM_CEL);
-        int posY = (int) Math.floor(y / TAM_CEL);
-        // Se posição for inválida
-        if (isPosicaoInvalida(posX, posY)) {
-            return;
+        try {
+            int x = e.getPoint().x - INI;
+            int y = e.getPoint().y - INI;
+            int posX = (int) Math.floor(x / TAM_CEL);
+            int posY = (int) Math.floor(y / TAM_CEL);
+            // Se posição for inválida
+            if (isPosicaoInvalida(posX, posY)) {
+                return;
+            }
+            ControlePeca.getInstance().addPeca(posX, posY);
+        } catch (ExceptionPeca ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (ExceptionConjuntoExiste ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+            ControlePeca.getInstance().clear();
         }
-        ControlePeca.getInstance().addPeca(posX, posY);
         repaint();
     }
     

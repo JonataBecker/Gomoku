@@ -54,7 +54,6 @@ public class Gomoku extends JFrame {
      * @param args 
      */
     public static void main(String[] args) {
-        ControleJogador.getInstance().addJogador();
         Gomoku gomoku = new Gomoku();
     }
 }
