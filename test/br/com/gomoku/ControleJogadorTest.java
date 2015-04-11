@@ -13,8 +13,8 @@ public class ControleJogadorTest {
      */
     @Test
     public void trocaPeca() {
-        Jogador jogador1 = new Jogador(TipoPecaEnum.BRANCA);
-        Jogador jogador2 = new Jogador(TipoPecaEnum.PRETA);
+        Jogador jogador1 = new Jogador(TipoPecaEnum.BRANCA, "Jogador 1");
+        Jogador jogador2 = new Jogador(TipoPecaEnum.PRETA,  "Jogador 2");
         assertEquals(jogador1, ControleJogador.getInstance().getJogador());
         ControleJogador.getInstance().trocaJogador();
         assertEquals(jogador2, ControleJogador.getInstance().getJogador());

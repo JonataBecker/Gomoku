@@ -19,6 +19,8 @@ public class Gomoku extends JFrame {
     public static final Color BACKGROUND = new Color(0x4682B4);
     /** Número de celulas */
     public static final int ELEMENTOS = 19;    
+    /** Largura das larerais */
+    public static final int LATERAL_WIDTH = 200;
     /** Largura mínima */
     private static final int W = 1000;
     /** Altura mínima */
@@ -36,10 +38,10 @@ public class Gomoku extends JFrame {
         setLayout(new BorderLayout());
         // Box topo
         add(new Topo(), BorderLayout.NORTH);
-        // Box Menu
-        add(new Menu(), BorderLayout.EAST);
         // Box placar
         add(new Placar(), BorderLayout.WEST);
+        // Box Menu
+        add(new Menu(), BorderLayout.EAST);
         // Box tabuleiro
         JPanel panelTabuleiro = new JPanel();
         panelTabuleiro.setBackground(Gomoku.BACKGROUND);

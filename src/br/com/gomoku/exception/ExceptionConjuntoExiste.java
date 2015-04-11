@@ -9,7 +9,7 @@ public class ExceptionConjuntoExiste extends Exception {
      * Construtor padrão da exception de existência de conjunto válido
      */
     public ExceptionConjuntoExiste() {
-        super("Conjento existênte");
+        super("Conjunto existente");
     }
 
 }

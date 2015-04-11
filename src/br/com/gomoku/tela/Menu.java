@@ -1,6 +1,7 @@
 package br.com.gomoku.tela;
 
 import br.com.gomoku.Gomoku;
+import java.awt.Dimension;
 import javax.swing.JPanel;
 
 /**
@@ -13,6 +14,7 @@ public class Menu extends JPanel {
      */
     public Menu() {
         setBackground(Gomoku.BACKGROUND);
+        setPreferredSize(new Dimension(Gomoku.LATERAL_WIDTH, 5));
     }
     
 }

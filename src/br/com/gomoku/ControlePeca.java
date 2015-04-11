@@ -15,6 +15,8 @@ public class ControlePeca {
     private static final int NUM_CONJUNTO = 5;
     /** Instância do objeto responsável pelo controle de peças */
     private static ControlePeca peca;
+    /** Listner de vitórias */
+    private final List<VitoriaListner> listner;
     /** Matriz de peças */
     private Peca[][] pecas;
 
@@ -22,6 +24,7 @@ public class ControlePeca {
      * Construtor privado da classe de controle de peças
      */
     private ControlePeca() {
+        listner = new ArrayList<>();
         clear();
     }
 
@@ -130,7 +133,7 @@ public class ControlePeca {
         int xIni = peca.getPoint().x;
         int yIni = peca.getPoint().y;
         if (xIni > 0 && yIni > 0) {
-            for (int i = 0; i<NUM_CONJUNTO; i++) {
+            for (int i = 0; i < NUM_CONJUNTO; i++) {
                 xIni--;
                 yIni--;
                 if (xIni == 0 || yIni == 0) {
@@ -157,7 +160,7 @@ public class ControlePeca {
         int xIni = peca.getPoint().x;
         int yIni = peca.getPoint().y;
         if (xIni < Gomoku.ELEMENTOS && yIni > 0) {
-            for (int i = 0; i<NUM_CONJUNTO; i++) {
+            for (int i = 0; i < NUM_CONJUNTO; i++) {
                 xIni++;
                 yIni--;
                 if (xIni == Gomoku.ELEMENTOS || yIni == 0) {
@@ -207,6 +210,7 @@ public class ControlePeca {
                 num++;
                 // Se possuir um conjunto
                 if (num == NUM_CONJUNTO) {
+                    fireVitoriaListner();
                     throw new ExceptionConjuntoExiste();
                 }
             }
@@ -234,6 +238,24 @@ public class ControlePeca {
         pecas = new Peca[Gomoku.ELEMENTOS][Gomoku.ELEMENTOS];
     }
 
+    /**
+     * Adiciona listner de vitória
+     * 
+     * @param vitoriaListner Listner de vitória
+     */
+    public void addVitoriaListner(VitoriaListner vitoriaListner) {
+        listner.add(vitoriaListner);
+    }
+    
+    /**
+     * Dispara listner de vitórias
+     */
+    private void fireVitoriaListner() {
+        for (VitoriaListner vitoriaListner : listner) {
+            vitoriaListner.vitoria();
+        }
+    }
+    
     /**
      * Retorna instância do objeto de controle de peças
      *

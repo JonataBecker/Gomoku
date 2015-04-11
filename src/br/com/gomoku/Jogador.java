@@ -9,14 +9,21 @@ public class Jogador {
 
     /** Tipo de peças */
     private final TipoPecaEnum tipoPeca;
-
+    /** Descrição do jogador */
+    private final String descricao;
+    /** Número de vitórias */
+    private int vitorias;
+    
     /**
      * Construtor padrão da classe responsável por informações do jogador
      *
      * @param tipoPeca Tipo de peça
+     * @param descricao Descrição
      */
-    public Jogador(TipoPecaEnum tipoPeca) {
+    public Jogador(TipoPecaEnum tipoPeca, String descricao) {
         this.tipoPeca = tipoPeca;
+        this.descricao = descricao;
+        this.vitorias = 0;
     }
 
     /**
@@ -28,6 +35,31 @@ public class Jogador {
         return tipoPeca;
     }
 
+    /**
+     * Retorna a descrição do jogador
+     *
+     * @return String
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * Retorna o número de vitórias
+     * 
+     * @return int
+     */
+    public int getVitorias() {
+        return vitorias;
+    }
+
+    /**
+     * Incrementa número de vitórias
+     */
+    public void addVitorias() {
+        vitorias = vitorias++;
+    }
+    
     /**
      * Retorna hashcode para o jogador
      *
@@ -42,10 +74,10 @@ public class Jogador {
 
     /**
      * Verifica igualdade entre jogadores
-     * 
+     *
      * @param obj Jogador
      * @return boolean
-     */    
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -60,5 +92,5 @@ public class Jogador {
         }
         return true;
     }
-        
+
 }
