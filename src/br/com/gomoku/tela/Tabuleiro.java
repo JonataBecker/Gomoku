@@ -3,7 +3,6 @@ package br.com.gomoku.tela;
 import br.com.gomoku.ControlePeca;
 import br.com.gomoku.Gomoku;
 import br.com.gomoku.Peca;
-import br.com.gomoku.exception.ExceptionConjuntoExiste;
 import br.com.gomoku.exception.ExceptionPeca;
 import br.com.gomoku.image.CacheImage;
 import java.awt.BasicStroke;
@@ -130,9 +129,6 @@ public class Tabuleiro extends JPanel {
             ControlePeca.getInstance().addPeca(posX, posY);
         } catch (ExceptionPeca ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
-        } catch (ExceptionConjuntoExiste ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-            ControlePeca.getInstance().clear();
         }
         repaint();
     }

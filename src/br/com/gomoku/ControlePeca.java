@@ -16,7 +16,9 @@ public class ControlePeca {
     /** Instância do objeto responsável pelo controle de peças */
     private static ControlePeca peca;
     /** Listner de vitórias */
-    private final List<VitoriaListner> listner;
+    private final List<VitoriaListner> vitoriaListner;
+    /** Listner de adição de peça */
+    private final List<PecaListner> pecaListner;
     /** Matriz de peças */
     private Peca[][] pecas;
 
@@ -24,7 +26,8 @@ public class ControlePeca {
      * Construtor privado da classe de controle de peças
      */
     private ControlePeca() {
-        listner = new ArrayList<>();
+        vitoriaListner = new ArrayList<>();
+        pecaListner = new ArrayList<>();
         clear();
     }
 
@@ -34,16 +37,21 @@ public class ControlePeca {
      * @param x Posição x
      * @param y Posição y
      * @throws ExceptionPeca Problema ao adiciona peça
-     * @throws ExceptionConjuntoExiste Conjunto existênte
      */
-    public void addPeca(int x, int y) throws ExceptionPeca, ExceptionConjuntoExiste {
-        if (isExistPeca(x, y)) {
-            throw new ExceptionPeca("Posição já ocupada por outra peça!");
+    public void addPeca(int x, int y) throws ExceptionPeca {
+        try {
+            if (isExistPeca(x, y)) {
+                throw new ExceptionPeca("Posição já ocupada por outra peça!");
+            }
+            Jogador jogador = ControleJogador.getInstance().getJogador();
+            ControleJogador.getInstance().trocaJogador();
+            pecas[x][y] = new Peca(jogador.getTipoPeca(), new Point(x, y));
+            firePecaListner();
+            existeConjunto(pecas[x][y]);  
+        } catch (ExceptionConjuntoExiste ex) {
+            fireVitoriaListner();
+            clear();
         }
-        Jogador jogador = ControleJogador.getInstance().getJogador();
-        ControleJogador.getInstance().trocaJogador();
-        pecas[x][y] = new Peca(jogador.getTipoPeca(), new Point(x, y));
-        existeConjunto(pecas[x][y]);
     }
 
     /**
@@ -210,7 +218,6 @@ public class ControlePeca {
                 num++;
                 // Se possuir um conjunto
                 if (num == NUM_CONJUNTO) {
-                    fireVitoriaListner();
                     throw new ExceptionConjuntoExiste();
                 }
             }
@@ -241,18 +248,36 @@ public class ControlePeca {
     /**
      * Adiciona listner de vitória
      * 
-     * @param vitoriaListner Listner de vitória
+     * @param listner Listner de vitória
      */
-    public void addVitoriaListner(VitoriaListner vitoriaListner) {
-        listner.add(vitoriaListner);
+    public void addVitoriaListner(VitoriaListner listner) {
+        vitoriaListner.add(listner);
     }
     
     /**
      * Dispara listner de vitórias
      */
     private void fireVitoriaListner() {
-        for (VitoriaListner vitoriaListner : listner) {
-            vitoriaListner.vitoria();
+        for (VitoriaListner listner : vitoriaListner) {
+             listner.vitoria();
+        }
+    }
+
+    /**
+     * Adiciona listner de adição de peças
+     * 
+     * @param listner Listner de adição de peças
+     */
+    public void addPecaListner(PecaListner listner) {
+        pecaListner.add(listner);
+    }
+    
+    /**
+     * Dispara listner de adição de peças
+     */
+    private void firePecaListner() {
+        for (PecaListner listner : pecaListner) {
+            listner.add();
         }
     }
     
